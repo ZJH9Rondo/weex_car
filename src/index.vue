@@ -28,12 +28,12 @@
     align-items: center;
   }
   .page-title{
-    justify-content: center;
-    width: 600px;
+    width: 200px;
     height: 88px;
   }
   .title{
-    font-size: 50px;
+    text-align: center;
+    font-size: 70px;
     color: #cccccc;
   }
   .sign-input{
