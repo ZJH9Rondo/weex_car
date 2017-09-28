@@ -1,8 +1,8 @@
 <template>
   <div @viewappear="onappear">
     <navbar></navbar>
-    <list class="bui-list car-list" @loadmore="onLoadmore" loadmoreoffset="2">
-        <refresh class="bui-refresh" @refresh="onRefresh" @pullingdown="onPullingdown" :display="refreshing ? 'show':'hide'">
+    <list class="bui-list car-list" @loadmore="onLoadmore(event)" loadmoreoffset="2">
+        <refresh class="bui-refresh" @refresh="onRefresh" @pullingdown="onPullingdown($event)" :display="refreshing ? 'show':'hide'">
           <text class="bui-refresh-indicator">{{refreshText}}</text>
         </refresh>
         <cell class="bui-cell car-item" v-for="(item,index) in listData" :key="item">
@@ -31,9 +31,7 @@
 
 <style scoped>
   .car-list{
-    height: auto;
     top: 100px;
-    padding-top: 20px;
   }
   .car-item{
     height: 250px;
@@ -60,7 +58,7 @@ export default {
   components: {Navbar,Tabbar},
   data () {
       return {
-        LOADMORE_COUNT: 5,
+        LOADMORE_COUNT: 3,
         LOADMORE: [
           ,{
           title: '柯尼塞格',
@@ -168,36 +166,52 @@ export default {
       },
       onRefresh: function (e){
         this.refreshing = true;
-        for(let i=0;i<30000;i++){}
-        this.refreshText = "刷新成功";
-        for(let i=0;i<1000;i++){}        
-        this.refreshing = false;
-        this.listData = this.sourceData;
+        let listLength = this.listData.length;
+        let sourceLength = this.sourceData.length;
+        setTimeout(()=>{
+          this.refreshText = "刷新成功";  
+          setTimeout(()=>{
+            Buiweex.toast(listLength,sourceLength);            
+            if (this.listData.length+3 >= this.sourceData.length) {
+              this.refreshText = '没有更多数据了';
+              this.refreshing = false;
+            }else {
+              this.loadingText = '正在加载更多数据...';
+              for (let i = listLength; i < listLength + this.LOADMORE_COUNT; ++i) {
+                this.listData.push(this.sourceData[i+1]);
+              }
+              this.refreshing = false;
+            }
+          },300);
+        },500);
       },
       onPullingdown: function (e){
         //默认refresh文字与图标
         this.refreshText = "下拉可以刷新...";
         //下拉一定距离时文字与图标
-        if (e.pullingDistance > 30) {
+        if (Math.abs(e.pullingDistance) > 60) {
           this.refreshText = "松开即可刷新...";
         }
       },
       onLoading: function (e) {
-                Buiweex.toast("loading");
-                this.showLoading = true;
-                for(let j=0;j<5000;j++){}
-                let length = this.listData.length;
-                    this.showLoading = false;
-                    if (length > this.sourceData.length) {
-                        this.loadingText = '没有更多数据了';
-                        return
-                    } else {
-                        this.loadingText = '加载更多数据...';
-                        for (let i = length; i < length + this.LOADMORE_COUNT; ++i) {
-                            this.listData.push(this.sourceData[i+1]);
-                        }
-                    }
-            },
+        Buiweex.toast("loading....");
+        this.showLoading = true;
+        let listLength = this.listData.length;
+        let sourceLength = this.sourceData.length;
+        setTimeout(()=>{
+          Buiweex.toast(listLength,sourceLength);
+          if(this.listData.length+3 >= this.sourceData.length) {
+            this.refreshText = '没有更多数据了';
+            this.showLoading = false;
+          }else {
+            this.loadingText = '正在加载更多数据...';
+            for (let i = listLength; i < listLength + this.LOADMORE_COUNT; ++i) {
+                this.listData.push(this.sourceData[i+1]);
+            }
+            this.showLoading = false;            
+          }
+        },2000);      
+      },
     }
   }
 </script>
