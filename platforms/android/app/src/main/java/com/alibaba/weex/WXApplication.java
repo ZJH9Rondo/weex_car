@@ -28,6 +28,7 @@ public class WXApplication extends Application {
 
     try {
       WXSDKEngine.registerModule("event", WXEventModule.class);
+      // WXSDKEngine.registerModule("CameraModule",Camera.class);
     } catch (WXException e) {
       e.printStackTrace();
     }

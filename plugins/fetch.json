@@ -1,0 +1,10 @@
+{
+    "nat-camera": {
+        "source": {
+            "type": "registry",
+            "id": "nat-camera"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}

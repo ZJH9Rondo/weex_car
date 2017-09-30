@@ -1,7 +1,7 @@
 <template>
   <div @viewappear="onappear">
     <navbar></navbar>
-    <list class="bui-list car-list" @loadmore="onLoadmore(event)" loadmoreoffset="2">
+    <list class="bui-list car-list" @loadmore="onLoadmore(event)" loadmoreoffset="2" :style="{height: listHeight}">
         <refresh class="bui-refresh" @refresh="onRefresh" @pullingdown="onPullingdown($event)" :display="refreshing ? 'show':'hide'">
           <text class="bui-refresh-indicator">{{refreshText}}</text>
         </refresh>
@@ -59,8 +59,9 @@ export default {
   data () {
       return {
         LOADMORE_COUNT: 3,
+        listHeight: 0,
         LOADMORE: [
-          ,{
+          {
           title: '柯尼塞格',
           number: "04152112",                    
           content: "2017年9月23日,驾车前往未央区,2017年9月23日,驾车前往未央区2017年9月23日,驾车前往未央区2017年9月23日,驾车前往未央区",          
@@ -156,6 +157,7 @@ export default {
       }
     },
     created: function (){
+      this.listHeight = this.$getConfig().env.deviceHeight- 88;
       for(let i = 0;i<3;i++){
         this.listData.push(this.sourceData[i]);
       }

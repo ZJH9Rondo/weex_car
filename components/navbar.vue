@@ -26,10 +26,6 @@
       }.bind(this));
       this.$on('naviBar.rightItem.click',function(e){
         duration = 2;
-        this.$call('modal', 'toast', {
-          'message': 'naviBar.rightItem.click',
-          'duration': duration
-          });
       });
       this.$on('naviBar.leftItem.click',function(e){
         duration = 2;
