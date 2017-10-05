@@ -4,6 +4,8 @@
 </template>
 <script>
   import WxcNavpage from 'weex-components/src/wxc-navpage.vue'
+  import Nat from 'natjs'
+  import Buiweex from 'bui-weex'
 
   export default {
     components: {WxcNavpage},
@@ -26,6 +28,9 @@
       }.bind(this));
       this.$on('naviBar.rightItem.click',function(e){
         duration = 2;
+        Nat.camera.captureImage((err,ret)=>{
+          Buiweex.toast(ret.path);
+        });
       });
       this.$on('naviBar.leftItem.click',function(e){
         duration = 2;

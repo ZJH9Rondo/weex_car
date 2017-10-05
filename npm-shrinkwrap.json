@@ -5917,6 +5917,11 @@
             "resolved": "https://registry.npmjs.org/native-promise-only/-/native-promise-only-0.8.1.tgz",
             "integrity": "sha1-IKMYwwy0X3H+et+/eyHJnBRy7xE="
         },
+        "natjs": {
+            "version": "0.0.9",
+            "resolved": "https://registry.npmjs.org/natjs/-/natjs-0.0.9.tgz",
+            "integrity": "sha512-t/Yyz3uE4QTNZVGmFB5f4qLlUO7d5OvCtZGzspJEF8O08eGFndKodHCRrol5C9h3bOW2Anma+twTkg4RXDcyzw=="
+        },
         "natural-compare": {
             "version": "1.4.0",
             "resolved": "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz",
